@@ -14,6 +14,11 @@
         {% endblock %}
     </head>
     <body>
+    <div class="example-wrapper">
+        {% for cle,value in  app.session.flashBag.get("success")%}
+            <div class="alert alert-success">{{ value }}</div>
+        {%endfor%}
+    </div>
         {% block body %}{% endblock %}
     </body>
 </html>
