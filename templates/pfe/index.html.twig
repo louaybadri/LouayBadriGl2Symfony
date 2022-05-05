@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PFEController!{% endblock %}
+
+{% block body %}
+    {%if (pfe!=null)%}
+<div class="cart text-white bg-primary mb-3" style="max-width: 18rem">
+<div class="card-header"> {{pfe.title}}</div>
+    <div class="card-body">
+        <h5 class="card-title">{{pfe.student}}</h5>
+        <p class="card-text">{{ pfe.entreprise }}</p>
+    </div>
+
+</div>
+    {%endif%}
+{% endblock %}
