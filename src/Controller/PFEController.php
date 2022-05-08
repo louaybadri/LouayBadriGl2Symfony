@@ -14,17 +14,15 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/pfe')]
 class PFEController extends AbstractController
 {
-    #[Route('/', name: 'pfe')]
-    public function index(ManagerRegistry $doctrine): Response
+    #[Route('/{id<\d+>?}', name: 'pfe')]
+    public function index(ManagerRegistry $doctrine,PFE $pfe=null): Response
     {
-        $repo = $doctrine->getRepository(PFE::class);
-        $pfes = $repo->findAll();
-
         return $this->render('pfe/index.html.twig', [
-            'pfe'=>end($pfes),'pfes'=>$pfes
+            'pfe'=>$pfe
+//            'pfe'=>end($pfes),'pfes'=>$pfes
         ]);
     }
-    #[Route('/add', name: 'add')]
+    #[Route('/add/', name: 'addPFE')]
     public function add(EntityManagerInterface $manager, Request $request): Response
     {
 
@@ -35,9 +33,20 @@ class PFEController extends AbstractController
         if ($form->isSubmitted()) {
             $manager->persist($PFE);
             $manager->flush();
-            return $this->redirectToRoute('pfe');
+            return $this->redirectToRoute('pfe',['id'=>$PFE->getId()]);
 //            dd($request);
         }
         return $this->render('PFE/add.html.twig', ['form' => $form->createView()]);
     }
+//     to reset the database
+//    #[Route('/reset', name: 'reset')]
+//    public function reset(ManagerRegistry $doctrine,EntityManagerInterface $manager, Request $request): Response
+//    {
+//        $repo = $doctrine->getRepository(PFE::class);
+//        $pfes = $repo->findAll();
+//        foreach ($pfes as $pfe )
+//            $manager->remove($pfe);
+//        $manager->flush();
+//        return $this->redirectToRoute('pfe');
+//    }
 }

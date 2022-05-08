@@ -3,18 +3,37 @@
 {% block title %}Hello EntrepriseController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container">
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Louay Badri/Documents/ExamWeb/TP/src/Controller/EntrepriseController.php'|file_link(0) }}">src/Controller/EntrepriseController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Louay Badri/Documents/ExamWeb/TP/templates/entreprise/index.html.twig'|file_link(0) }}">templates/entreprise/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+    <div class="row">
+        {% for value in table %}
+        {% if loop.index%2==1 %}
+        <div class="cart text-white bg-primary mb-3" style="max-width: 18rem; margin: 5px">
+            {% else %}
+            <div class="cart text-white bg-success mb-3" style="max-width: 18rem; margin: 5px">
+                {% endif %}
+
+                <div class="card-header"> {{ value.Name }}</div>
+                <div class="card-body">
+
+                    <h5 class="card-title"> {{ value.occ }}{% if value.occ<=1 %} PFE{%else%} PFES{%endif%}</h5>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}

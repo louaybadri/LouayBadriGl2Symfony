@@ -9,24 +9,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PFE extends Fixture
 {
-    public $entreprises;
 
     public function load(ObjectManager $manager): void
     {
 
         $faker=Factory::create();
-        for ($i=0;$i<20;$i++){
+        for ($i=0;$i<10;$i++){
+            $entreprise= new \App\Entity\Entreprise();
+            $name=$faker->domainName;
+            $entreprise->setName($name);
             $pfe = new \App\Entity\PFE();
             $pfe->setStudent($faker->name);
-            $pfe->setTitle($faker->title);
-            $pfe->setEntreprise("entreprise".$i);
-
+            $pfe->setTitle($faker->name);
+            $pfe->setEntreprise($entreprise);
+            $manager->persist($entreprise);
             $manager->persist($pfe);
 
         }
-        // $product = new Product();
-        // $manager->persist($product);
 
         $manager->flush();
+
     }
 }
